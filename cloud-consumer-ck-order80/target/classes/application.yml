@@ -1,0 +1,13 @@
+server:
+  port: 80
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 192.168.80.128:2181
+  application:
+    name: cloud-consumer-service
+  rabbitmq:
+    host: 192.168.80.128
+    port: 5672
+    username: root
+    password: 123456

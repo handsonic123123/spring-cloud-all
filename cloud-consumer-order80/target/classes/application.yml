@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: cloud-consumer-service
+  zipkin: #<-------------------------------------关键
+    base-url: http://192.168.80.128:9411
+  sleuth: #<-------------------------------------关键
+    sampler:
+      #采样率值介于 0 到 1 之间，1 则表示全部采集
+      probability: 1
+  rabbitmq:
+    host: 192.168.80.128
+    port: 5672
+    username: root
+    password: 123456
+server:
+  port: 80
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: order80
+    prefer-ip-address: true
+    #Eureka客户端向服务端发送心跳的时间间隔，单位为秒(默认是30秒)
+    lease-renewal-interval-in-seconds: 1
+    #Eureka服务端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时将剔除服务
+    lease-expiration-duration-in-seconds: 90
+
+

@@ -1,0 +1,14 @@
+server:
+  port: ${sever.port:9001}
+spring:
+  application:
+    name: nacos-payment-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.80.128:8848
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

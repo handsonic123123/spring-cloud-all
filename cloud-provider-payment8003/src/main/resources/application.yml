@@ -1,0 +1,35 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: cloud-provider-payment
+  rabbitmq:
+    host: 192.168.80.128
+    port: 5672
+    username: root
+    password: 123456
+  cloud:
+    zookeeper:
+      connect-string: 192.168.80.128:2181
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.80.128:3306/eureka_db?userUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      # 连接池最大连接数
+      maximum-pool-size: 12
+      # 空闲时保持最小连接数
+      minimum-idle: 5
+      # 空闲连接存活时间
+      idle-timeout: 300000
+      # 连接超时时间
+      connection-timeout: 20000
+      # 测试sql
+      connection-test-query: select 1
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: on

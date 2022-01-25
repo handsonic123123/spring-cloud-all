@@ -1,0 +1,36 @@
+server:
+  port: 9527
+spring:
+  application:
+    name: cloud-gateway
+  rabbitmq:
+    host: 192.168.80.128
+    port: 5672
+    username: root
+    password: 123456
+  cloud:
+    consul:
+      host: 192.168.80.128
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        ip-address: 192.168.1.10
+        health-check-url: http://${spring.cloud.consul.discovery.ip-address}:${server.port}/actuator/health
+    #############################新增网关配置###########################
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+#     方案一，另一种可以使用config类进行配置路由规则
+#      routes:
+#        - id: payment_route #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+#          uri: http://localhost:8003        #匹配后提供服务的路由地址
+#          #uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+#          predicates:
+#            - Path=/payment/get/**         # 断言，路径相匹配的进行路由
+#
+#        - id: payment_route2 #payment_route    #路由的ID，没有固定规则但要求唯一，建议配合服务名
+#          uri: http://localhost:8003          #匹配后提供服务的路由地址
+#          #uri: lb://cloud-payment-service #匹配后提供服务的路由地址
+#          predicates:
+#            - Path=/payment/lb/**         # 断言，路径相匹配的进行路由

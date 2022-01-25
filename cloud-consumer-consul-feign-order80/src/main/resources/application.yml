@@ -1,0 +1,32 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-consumer-service
+  rabbitmq:
+    host: 192.168.80.128
+    port: 5672
+    username: root
+    password: 123456
+  cloud:
+    consul:
+      port: 8500
+      host: ${spring.rabbitmq.host}
+      discovery:
+        service-name: ${spring.application.name}
+        ip-address: 192.168.1.10
+        health-check-url: http://${spring.cloud.consul.discovery.ip-address}:${server.port}/actuator/health
+#设置feign客户端超时时间(OpenFeign默认支持ribbon)(单位：毫秒)
+feign:
+  client:
+    config:
+      default:
+#指的是建立连接后从服务器读取到可用资源所用的时间
+        connectTimeout: 60000
+#指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+        readTimeout: 60000
+  hystrix:
+    enabled: true
+logging:
+  level:
+    net.wanho.order.service.PaymentFeignService: debug
